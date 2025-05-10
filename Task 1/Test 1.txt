@@ -1,0 +1,45 @@
+student: 
+    student_id INT PRIMARY KEY
+    first_name  VARCHAR(100)  
+    last_name VARCHAR
+    email   VARCHAR
+    date_of_birth DATE
+
+subject: 
+    subject_id INT PRIMARY KEY
+    subject_name VARCHAR 
+
+marks:
+    mark_id INT PRIMARY KEY
+    student_id INT FOREIGN KEY REFERENCES(student_id)
+    subject_id INT FOREIGN KEY REFERENCES subjects(subject_id)
+    mark_obtained DECIMAL
+
+
+Postsql scripts: 
+
+Create student table
+CREATE TABLE student (
+    student_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    date_of_birth DATE  
+);
+
+Create subject table
+CREATE TABLE subject (
+    subject_id SERIAL PRIMARY KEY,
+    subject_name VARCHAR(100) NOT NULL
+);
+
+Create marks table
+CREATE TABLE marks (
+    mark_id SERIAL PRIMARY KEY,
+    student_id INT NOT NULL,
+    subject_id INT NOT NULL,
+    mark_obtained DECIMAL(5, 2),
+
+    FOREIGN KEY (student_id) REFERENCES student(student_id),
+    FOREIGN KEY (subject_id) REFERENCES subject(subject_id)
+);
